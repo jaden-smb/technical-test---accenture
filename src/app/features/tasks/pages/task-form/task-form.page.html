@@ -1,0 +1,49 @@
+<app-back-header
+  [title]="isEdit ? 'Editar tarea' : 'Nueva tarea'"
+  defaultHref="/tasks"
+></app-back-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <ion-item>
+      <ion-label position="stacked">Título *</ion-label>
+      <ion-input formControlName="title" placeholder="¿Qué hay que hacer?"></ion-input>
+    </ion-item>
+    <app-form-error
+      message="El título es obligatorio"
+      [visible]="!!(form.get('title')?.touched && form.get('title')?.hasError('required'))"
+    ></app-form-error>
+
+    <ion-item>
+      <ion-label position="stacked">Descripción</ion-label>
+      <ion-textarea
+        formControlName="description"
+        placeholder="Agregar detalles (opcional)"
+        [autoGrow]="true"
+        rows="3"
+      ></ion-textarea>
+    </ion-item>
+
+    <ion-item *ngIf="categoriesEnabled$ | async">
+      <ion-label position="stacked">Categoría</ion-label>
+      <ion-select formControlName="categoryId" placeholder="Seleccionar categoría" interface="popover">
+        <ion-select-option [value]="null">Ninguna</ion-select-option>
+        <ion-select-option
+          *ngFor="let cat of categories$ | async; trackBy: trackByCategoryId"
+          [value]="cat.id"
+        >
+          {{ cat.name }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-button
+      expand="block"
+      type="submit"
+      [disabled]="form.invalid"
+      class="ion-margin-top"
+    >
+      {{ isEdit ? 'Actualizar tarea' : 'Crear tarea' }}
+    </ion-button>
+  </form>
+</ion-content>

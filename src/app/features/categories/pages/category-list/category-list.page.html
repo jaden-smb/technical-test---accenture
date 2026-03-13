@@ -1,0 +1,38 @@
+<app-back-header title="Categorías" defaultHref="/tasks"></app-back-header>
+
+<ion-content>
+  <ng-container *ngIf="categories$ | async as categories">
+    <ion-list *ngIf="categories.length > 0; else emptyTemplate">
+      <ion-item *ngFor="let cat of categories; trackBy: trackById">
+        <div
+          slot="start"
+          class="category-list__color-dot"
+          [style.background]="cat.color"
+        ></div>
+        <ion-label>
+          <h2>{{ cat.name }}</h2>
+          <p>{{ cat.createdAt | relativeTime }}</p>
+        </ion-label>
+        <ion-button
+          slot="end"
+          fill="clear"
+          color="medium"
+          (click)="onOptions(cat.id)"
+          aria-label="Opciones de categoría"
+        >
+          <ion-icon slot="icon-only" name="ellipsis-vertical"></ion-icon>
+        </ion-button>
+      </ion-item>
+    </ion-list>
+  </ng-container>
+
+  <ng-template #emptyTemplate>
+    <app-empty-state
+      icon="pricetags-outline"
+      title="Sin categorías"
+      message="Toca el botón + para crear tu primera categoría"
+    ></app-empty-state>
+  </ng-template>
+
+  <app-add-fab routerLink="/categories/new"></app-add-fab>
+</ion-content>

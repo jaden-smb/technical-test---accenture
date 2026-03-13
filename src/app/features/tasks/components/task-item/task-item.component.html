@@ -1,0 +1,32 @@
+<ion-item
+  [class.task-item--completed]="task.completed"
+  [routerLink]="['/tasks', task.id]"
+  detail="false"
+  button
+  lines="full"
+>
+  <ion-label>
+    <h2 [class.task-item__title--done]="task.completed">{{ task.title }}</h2>
+    <p *ngIf="task.description">{{ task.description }}</p>
+    <p class="task-item__meta">
+      <ion-badge
+        *ngIf="category"
+        [style.--background]="category.color"
+        class="task-item__badge"
+      >
+        {{ category.name }}
+      </ion-badge>
+      <span>{{ task.createdAt | relativeTime }}</span>
+    </p>
+  </ion-label>
+  <ion-button
+    slot="end"
+    fill="clear"
+    color="medium"
+    (click)="$event.stopPropagation(); options.emit(task.id)"
+    aria-label="Opciones de tarea"
+    data-testid="task-options-btn"
+  >
+    <ion-icon slot="icon-only" name="ellipsis-vertical"></ion-icon>
+  </ion-button>
+</ion-item>

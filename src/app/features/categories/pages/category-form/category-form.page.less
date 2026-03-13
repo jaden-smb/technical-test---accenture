@@ -1,0 +1,38 @@
+.category-form {
+  &__color-picker {
+    padding: 16px;
+
+    ion-label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+  }
+
+  &__color-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  &__color-swatch {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.15s;
+
+    &--selected {
+      border-color: var(--ion-color-dark);
+      transform: scale(1.15);
+    }
+
+    ion-icon {
+      font-size: 18px;
+    }
+  }
+}

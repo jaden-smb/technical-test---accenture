@@ -1,0 +1,43 @@
+.task-detail {
+  &__header {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+  }
+
+  &__title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0;
+
+    &--done {
+      text-decoration: line-through;
+      opacity: 0.5;
+    }
+  }
+
+  &__badge {
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    margin-top: 4px;
+  }
+
+  &__description {
+    color: var(--ion-color-medium);
+    margin-bottom: 12px;
+  }
+
+  &__meta {
+    font-size: 0.8rem;
+    color: var(--ion-color-medium);
+    margin-bottom: 24px;
+  }
+
+  &__completion {
+    --padding-start: 0;
+    margin-top: 8px;
+  }
+}

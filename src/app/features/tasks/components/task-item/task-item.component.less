@@ -1,0 +1,29 @@
+.task-item {
+  &--completed {
+    ion-label {
+      h2,
+      p {
+        opacity: 0.5;
+      }
+    }
+  }
+
+  &__title {
+    &--done {
+      text-decoration: line-through;
+    }
+  }
+
+  &__meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 4px;
+  }
+
+  &__badge {
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+}

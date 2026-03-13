@@ -1,0 +1,7 @@
+{
+  "name": "Technical Test - Accenture 2026",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

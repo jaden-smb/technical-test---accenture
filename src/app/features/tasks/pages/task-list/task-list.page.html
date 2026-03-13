@@ -1,0 +1,108 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Tareas</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/settings">
+        <ion-icon slot="icon-only" name="settings-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="onRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ng-container *ngIf="categoriesEnabled$ | async">
+    <ng-container *ngIf="{ selId: selectedCategoryId$ | async, cats: categories$ | async, open: filterOpen$ | async } as ctx">
+      <ion-accordion-group
+        class="task-list__filter"
+        [value]="ctx.open ? 'filter' : null"
+        (ionChange)="onAccordionChange($event)"
+      >
+        <ion-accordion value="filter">
+          <ion-item slot="header" lines="full" class="task-list__filter-trigger">
+            <ion-icon slot="start" name="funnel-outline" color="medium"></ion-icon>
+            <ion-label>
+              <ng-container *ngIf="ctx.selId === 'all'; else selectedBadge">
+                <span class="task-list__filter-label">Todas las categorías</span>
+              </ng-container>
+              <ng-template #selectedBadge>
+                <ion-badge
+                  class="task-list__filter-badge"
+                  [style.--background]="getCategoryColor(ctx.selId)"
+                >
+                  {{ getCategoryName(ctx.selId) }}
+                </ion-badge>
+              </ng-template>
+            </ion-label>
+          </ion-item>
+
+          <div slot="content" class="task-list__filter-options">
+            <ion-item
+              button
+              lines="full"
+              (click)="selectCategory('all')"
+              class="task-list__filter-option"
+              [class.task-list__filter-option--selected]="ctx.selId === 'all'"
+            >
+              <ion-label>Todas las categorías</ion-label>
+              <ion-icon
+                *ngIf="ctx.selId === 'all'"
+                slot="end"
+                name="checkmark"
+                color="primary"
+              ></ion-icon>
+            </ion-item>
+
+            <ion-item
+              *ngFor="let cat of ctx.cats; trackBy: trackCategoryById"
+              button
+              lines="full"
+              (click)="selectCategory(cat.id)"
+              class="task-list__filter-option"
+              [class.task-list__filter-option--selected]="ctx.selId === cat.id"
+            >
+              <ion-badge
+                slot="start"
+                class="task-list__filter-badge"
+                [style.--background]="cat.color"
+              >
+                &nbsp;
+              </ion-badge>
+              <ion-label>{{ cat.name }}</ion-label>
+              <ion-icon
+                *ngIf="ctx.selId === cat.id"
+                slot="end"
+                name="checkmark"
+                color="primary"
+              ></ion-icon>
+            </ion-item>
+          </div>
+        </ion-accordion>
+      </ion-accordion-group>
+    </ng-container>
+  </ng-container>
+
+  <ng-container *ngIf="filteredTasks$ | async as tasks">
+    <ion-list *ngIf="tasks.length > 0; else emptyTemplate">
+      <app-task-item
+        *ngFor="let task of tasks; trackBy: trackTaskById"
+        [task]="task"
+        [category]="getCategoryForTask(task)"
+        (options)="onOptions($event)"
+      ></app-task-item>
+    </ion-list>
+  </ng-container>
+
+  <ng-template #emptyTemplate>
+    <app-empty-state
+      icon="checkbox-outline"
+      title="Sin tareas"
+      message="Toca el botón + para crear tu primera tarea"
+    ></app-empty-state>
+  </ng-template>
+
+  <app-add-fab routerLink="/tasks/new"></app-add-fab>
+</ion-content>

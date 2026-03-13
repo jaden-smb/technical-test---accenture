@@ -1,0 +1,39 @@
+.task-list {
+  &__filter {
+    border-bottom: 1px solid var(--ion-color-light-shade);
+  }
+
+  &__filter-trigger {
+    --padding-start: 12px;
+    --min-height: 44px;
+    font-size: 0.95rem;
+  }
+
+  &__filter-label {
+    color: var(--ion-color-medium);
+    font-size: 0.9rem;
+  }
+
+  &__filter-options {
+    background: var(--ion-color-light);
+  }
+
+  &__filter-option {
+    --padding-start: 16px;
+    --min-height: 44px;
+    --background: var(--ion-color-light);
+    font-size: 0.9rem;
+
+    &--selected {
+      --background: var(--ion-color-light-shade);
+    }
+  }
+
+  &__filter-badge {
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    min-width: 14px;
+    min-height: 14px;
+  }
+}

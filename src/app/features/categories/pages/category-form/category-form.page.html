@@ -1,0 +1,46 @@
+<app-back-header
+  [title]="isEdit ? 'Editar categoría' : 'Nueva categoría'"
+  defaultHref="/categories"
+></app-back-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <ion-item>
+      <ion-label position="stacked">Nombre *</ion-label>
+      <ion-input formControlName="name" placeholder="Nombre de categoría"></ion-input>
+    </ion-item>
+    <app-form-error
+      message="El nombre es obligatorio"
+      [visible]="!!(form.get('name')?.touched && form.get('name')?.hasError('required'))"
+    ></app-form-error>
+
+    <div class="category-form__color-picker">
+      <ion-label>Color</ion-label>
+      <div class="category-form__color-options">
+        <button
+          *ngFor="let color of presetColors"
+          type="button"
+          class="category-form__color-swatch"
+          [style.background]="color"
+          [class.category-form__color-swatch--selected]="form.get('color')?.value === color"
+          (click)="selectColor(color)"
+        >
+          <ion-icon
+            *ngIf="form.get('color')?.value === color"
+            name="checkmark"
+            color="light"
+          ></ion-icon>
+        </button>
+      </div>
+    </div>
+
+    <ion-button
+      expand="block"
+      type="submit"
+      [disabled]="form.invalid"
+      class="ion-margin-top"
+    >
+      {{ isEdit ? 'Actualizar categoría' : 'Crear categoría' }}
+    </ion-button>
+  </form>
+</ion-content>

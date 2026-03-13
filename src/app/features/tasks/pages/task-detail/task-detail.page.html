@@ -1,0 +1,40 @@
+<app-back-header title="Detalles de la tarea" defaultHref="/tasks"></app-back-header>
+
+<ion-content class="ion-padding">
+  <ng-container *ngIf="task$ | async as task; else notFound">
+    <div class="task-detail__header">
+      <h1 class="task-detail__title" [class.task-detail__title--done]="task.completed">
+        {{ task.title }}
+      </h1>
+      <ion-badge *ngIf="category$ | async as category" [style.--background]="category.color" class="task-detail__badge">
+        {{ category.name }}
+      </ion-badge>
+    </div>
+
+    <p *ngIf="task.description" class="task-detail__description">{{ task.description }}</p>
+
+    <p class="task-detail__meta">Creada {{ task.createdAt | relativeTime }}</p>
+
+    <ion-item lines="none" class="task-detail__completion">
+      <ion-checkbox
+        slot="start"
+        [checked]="task.completed"
+        (ionChange)="onToggle(task)"
+      ></ion-checkbox>
+      <ion-label>Marcar como completada</ion-label>
+    </ion-item>
+
+    <ion-button expand="block" fill="outline" routerLink="/tasks" class="ion-margin-top">
+      <ion-icon slot="start" name="arrow-back-outline"></ion-icon>
+      Volver a tareas
+    </ion-button>
+  </ng-container>
+
+  <ng-template #notFound>
+    <app-empty-state
+      icon="alert-circle-outline"
+      title="Tarea no encontrada"
+      message="Es posible que esta tarea haya sido eliminada"
+    ></app-empty-state>
+  </ng-template>
+</ion-content>

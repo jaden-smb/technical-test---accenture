@@ -1,0 +1,28 @@
+<app-back-header title="Configuración" defaultHref="/tasks"></app-back-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-icon name="pricetags-outline" slot="start"></ion-icon>
+      <ion-label>
+        <h3>Categorías de tareas</h3>
+        <p>Controlado por Firebase Remote Config</p>
+      </ion-label>
+      <ion-badge slot="end" [color]="(categoriesEnabled$ | async) ? 'success' : 'medium'">
+        {{ (categoriesEnabled$ | async) ? 'ACTIVO' : 'INACTIVO' }}
+      </ion-badge>
+    </ion-item>
+  </ion-list>
+
+  <ion-list *ngIf="categoriesEnabled$ | async">
+    <ion-item routerLink="/categories" detail>
+      <ion-icon name="folder-outline" slot="start"></ion-icon>
+      <ion-label>Gestionar categorías</ion-label>
+    </ion-item>
+  </ion-list>
+
+  <div class="app-info ion-padding">
+    <p class="app-info__text">Prueba Técnica - Accenture 2026</p>
+    <p class="app-info__text">Presentado por: Santiago Montoya</p>
+  </div>
+</ion-content>
