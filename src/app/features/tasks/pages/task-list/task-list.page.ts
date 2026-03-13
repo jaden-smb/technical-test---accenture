@@ -122,6 +122,10 @@ export class TaskListPage implements OnInit, OnDestroy {
     await alert.present();
   }
 
+  onNavigate(id: string): void {
+    this.router.navigate(['/tasks', id]);
+  }
+
   onEdit(id: string): void {
     this.router.navigate(['/tasks/edit', id]);
   }

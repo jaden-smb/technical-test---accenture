@@ -91,6 +91,7 @@
         *ngFor="let task of tasks; trackBy: trackTaskById"
         [task]="task"
         [category]="getCategoryForTask(task)"
+        (navigate)="onNavigate($event)"
         (options)="onOptions($event)"
       ></app-task-item>
     </ion-list>

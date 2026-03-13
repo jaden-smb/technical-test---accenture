@@ -18,5 +18,6 @@ import { Task, Category } from '../../../../core/models';
 export class TaskItemComponent {
   @Input() task!: Task;
   @Input() category?: Category;
+  @Output() navigate = new EventEmitter<string>();
   @Output() options = new EventEmitter<string>();
 }

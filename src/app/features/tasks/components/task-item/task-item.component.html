@@ -1,6 +1,6 @@
 <ion-item
   [class.task-item--completed]="task.completed"
-  [routerLink]="['/tasks', task.id]"
+  (click)="navigate.emit(task.id)"
   detail="false"
   button
   lines="full"
